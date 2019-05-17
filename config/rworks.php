@@ -1,6 +1,6 @@
 <?php
 return [
-    'perpage' => 1,
+    'perpage' => 10,
     'showsearchbox' => [
         'admin.users'
     ]

@@ -15,9 +15,11 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link{{ Request::route()->getName()  == 'admin.dashboard' ? ' active' : '' }}"><i class="fe fe-home"></i> {{ __('nav.home') }}</a>
                 </li>
+                @if(Auth::user()->can('manage-users'))
                 <li class="nav-item">
                     <a href="{{ route('admin.users') }}" class="nav-link{{ Request::route()->getName()  == 'admin.users' ? ' active' : '' }}"><i class="fe fe-users"></i> {{ __('nav.manageusers') }}</a>
                 </li>
+                @endif
             </ul>
         </div>
     </div>

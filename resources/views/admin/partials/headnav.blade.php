@@ -33,7 +33,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                     <a class="dropdown-item" href="{{ route('admin.users.edit', Auth::id()) }}">
-                        <i class="dropdown-icon fe fe-settings"></i> {{ __('common.settings') }}
+                        <i class="dropdown-icon fe fe-user"></i> {{ __('common.profilesettings') }}
                     </a>
                     <a @click="signOut('{{ route('logout') }}')" class="dropdown-item" href="javascript:void(0)">
                         <i class="dropdown-icon fe fe-log-out"></i> {{ __('auth.signout') }}

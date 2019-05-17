@@ -14,5 +14,6 @@ return [
     'search' => 'Search',
     'showingsearchresultsfor' => 'Showing search results for',
     'resetsearch' => 'Clear Search',
-    'noresultsfoundforquery' => 'No results found for your search query :query'
+    'noresultsfoundforquery' => 'No results found for your search query :query',
+    'profilesettings' => 'Edit Profile'
 ];

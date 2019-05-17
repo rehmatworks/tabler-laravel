@@ -6,10 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Storage;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password',
+    ];
+
+    protected $appends = [
+        'role'
     ];
 
     /**
@@ -45,5 +50,11 @@ class User extends Authenticatable
             return Storage::url($this->avatar);
         }
         return asset('assets/images/avatar.svg');
+    }
+
+    public function getRoleAttribute()
+    {
+        $role = $this->roles()->first();
+        return $role ? $role->name : 'N/A';
     }
 }

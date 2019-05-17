@@ -34,6 +34,11 @@
           @include('admin.partials.mainnav')
         </div>
         <div class="my-3 my-md-5">
+            <div class="container">
+                @if(Request::get('q'))
+                <p>{{ __('common.showingsearchresultsfor') }} <strong>{{ Request::get('q') }}</strong>. <a href="{{ Request::url() }}">{{ __('common.resetsearch') }}</a></p>
+                @endif
+            </div>
             @yield('content')
         </div>
       </div>

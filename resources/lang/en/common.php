@@ -8,5 +8,11 @@ return [
     'adminarea' => 'Administration Area',
     'settings' => 'Settings',
     'markasread' => 'Mark as Read',
-    'copyright' => 'Copyright'
+    'copyright' => 'Copyright',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'search' => 'Search',
+    'showingsearchresultsfor' => 'Showing search results for',
+    'resetsearch' => 'Clear Search',
+    'noresultsfoundforquery' => 'No results found for your search query :query'
 ];

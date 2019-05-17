@@ -22,7 +22,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'role'
+        'role', 'registered', 'avatarurl'
     ];
 
     /**
@@ -56,5 +56,10 @@ class User extends Authenticatable
     {
         $role = $this->roles()->first();
         return $role ? $role->name : 'N/A';
+    }
+
+    public function getRegisteredAttribute()
+    {
+        return $this->created_at->format('F d, Y');
     }
 }

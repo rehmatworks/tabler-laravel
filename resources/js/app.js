@@ -1,5 +1,16 @@
 require('./bootstrap');
 window.Vue = require('vue');
+
+import {Alert, Confirm, Toast, Loading} from 'wc-messagebox';
+import 'wc-messagebox/style.css';
+Vue.use(Alert);
+Vue.use(Confirm);
+Vue.use(Toast, 1500);
+Vue.use(Loading);
+
+import UsersComponent from './components/users/UsersComponent';
+Vue.component('users-component', UsersComponent);
+
 const app = new Vue({
     el: '#app',
     data() {

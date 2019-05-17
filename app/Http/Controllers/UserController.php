@@ -21,14 +21,17 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $this->authorize('manage-users');
-        $users = User::orderBy('created_at', 'DESC');
-        if($request->q)
+        if($request->ajax())
         {
-            $users = $users->where('name', 'like', '%%'.$request->q.'%%')->orWhere('email', $request->q);
+            $users = User::orderBy('created_at', 'DESC');
+            if($request->q)
+            {
+                $users = $users->where('name', 'like', '%%'.$request->q.'%%')->orWhere('email', $request->q);
+            }
+            $users = $users->paginate(config('rworks.perpage'));
+            return response()->json($users);
         }
-        $users = $users->paginate(config('rworks.perpage'));
-        $roles = Role::all();
-        return view('admin.users.index', compact('users', 'roles'));
+        return view('admin.users.index');
     }
 
     /**
@@ -53,7 +56,7 @@ class UserController extends Controller
         $user = User::create($request->only(['name', 'email', 'password']));
         $role = Role::find($request->role);
         $user->assignRole($role);
-        return back()->withSuccess(__('users.userhasbeenadded'));
+        return response()->json($user);
     }
 
     /**
@@ -99,5 +102,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function roles(Request $request)
+    {
+        $this->authorize('manage-users');
+        $roles = Role::all();
+        return response()->json($roles);
     }
 }

@@ -5481,6 +5481,11 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+wc-messagebox@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/wc-messagebox/-/wc-messagebox-1.10.1.tgz#1490b9380856b152bb9ad5b396fd7677abe5e856"
+  integrity sha1-FJC5OAhWsVK7mtWzlv12d6vl6FY=
+
 webpack-cli@^3.1.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.2.tgz#aed2437b0db0a7faa2ad28484e166a5360014a91"

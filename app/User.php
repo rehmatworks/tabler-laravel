@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'gender', 'mobile', 'bio'
     ];
 
     protected $appends = [
@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function getAvatarurlAttribute()
     {
-        if($this->avatar && Storage::exists($this->avatar))
+        if($this->avatar && Storage::disk('public')->exists($this->avatar))
         {
             return Storage::url($this->avatar);
         }

@@ -1965,6 +1965,24 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$toast("Something went wrong!");
       });
+    },
+    deleteUser: function deleteUser(userId, index) {
+      var _this = this;
+
+      this.$confirm({
+        title: 'Are you sure?',
+        content: 'The user and all associated data will be deleted.',
+        yesText: 'Yes, Delete',
+        noText: 'No'
+      }).then(function () {
+        axios["delete"](_this.baseurl + '/' + userId).then(function (res) {
+          _this.$toast('User has been deleted.');
+
+          _this.usersData.data.splice(index, 1);
+        })["catch"](function (err) {
+          _this.$toast(err.response.data.message);
+        });
+      })["catch"](function (err) {});
     }
   }
 });
@@ -42994,7 +43012,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.usersData.data, function(user) {
+                        _vm._l(_vm.usersData.data, function(user, index) {
                           return _c("tr", [
                             _c("td", { staticClass: "text-center" }, [
                               _c("div", {
@@ -43034,7 +43052,68 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _vm._m(1, true)
+                            _c("td", { staticClass: "text-right" }, [
+                              _c(
+                                "div",
+                                { staticClass: "item-action dropdown" },
+                                [
+                                  _vm._m(1, true),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "dropdown-menu dropdown-menu-right"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-item",
+                                          attrs: {
+                                            href:
+                                              _vm.baseurl +
+                                              "/" +
+                                              user.id +
+                                              "/edit"
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "dropdown-icon fe fe-edit-2"
+                                          }),
+                                          _vm._v(" Edit")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-item",
+                                          attrs: { href: "javascript:void(0)" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteUser(
+                                                user.id,
+                                                index
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "dropdown-icon fe fe-trash"
+                                          }),
+                                          _vm._v(" Delete")
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
                           ])
                         }),
                         0
@@ -43082,37 +43161,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-right" }, [
-      _c("div", { staticClass: "item-action dropdown" }, [
-        _c(
-          "a",
-          {
-            staticClass: "icon",
-            attrs: { href: "javascript:void(0)", "data-toggle": "dropdown" }
-          },
-          [_c("i", { staticClass: "fe fe-more-vertical" })]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "dropdown-icon fe fe-edit-2" }),
-            _vm._v(" Edit")
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item",
-              attrs: { href: "javascript:void(0)" }
-            },
-            [
-              _c("i", { staticClass: "dropdown-icon fe fe-trash" }),
-              _vm._v(" Delete")
-            ]
-          )
-        ])
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "icon",
+        attrs: { href: "javascript:void(0)", "data-toggle": "dropdown" }
+      },
+      [_c("i", { staticClass: "fe fe-more-vertical" })]
+    )
   }
 ]
 render._withStripped = true
@@ -56869,7 +56925,10 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.use(wc_messagebox__WEBPACK_IMPORTED_MODULE_0__["Alert"]);
 Vue.use(wc_messagebox__WEBPACK_IMPORTED_MODULE_0__["Confirm"]);
-Vue.use(wc_messagebox__WEBPACK_IMPORTED_MODULE_0__["Toast"], 1500);
+Vue.use(wc_messagebox__WEBPACK_IMPORTED_MODULE_0__["Toast"], {
+  location: 'center',
+  duration: 3000
+});
 Vue.use(wc_messagebox__WEBPACK_IMPORTED_MODULE_0__["Loading"]);
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 

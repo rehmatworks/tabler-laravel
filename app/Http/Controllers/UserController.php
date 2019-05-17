@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Spatie\Permission\Models\Role;
-use App\Http\Requests\UserAddRequest;
+use App\Http\Requests\{UserAddRequest, UserUpdateRequest};
 use Illuminate\Support\Facades\Hash;
+use Storage;
 class UserController extends Controller
 {
     public function __construct()
@@ -76,9 +77,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $user, Request $request)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -88,9 +89,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        $user->update($request->only([
+            'name', 'email', 'bio', 'mobile', 'gender'
+        ]));
+        if($request->file('avatar'))
+        {
+            $avatar = $request->file('avatar')->store('avatars', ['disk' => 'public']);
+            if($avatar)
+            {
+                if($user->avatar && Storage::disk('public')->exists($user->avatar))
+                {
+                    Storage::disk('public')->delete($user->avatar);
+                }
+                $user->avatar = $avatar;
+                $user->save();
+            }
+        }
+        return back()->withSuccess('Profile details have been updated!');
     }
 
     /**
@@ -99,9 +116,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user, Request $request)
     {
-        //
+        if($user->id != $request->user()->id)
+        {
+            $user->delete();
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false, 'message' => 'You cannot delete your own account.'], 403);
     }
 
     public function roles(Request $request)

@@ -32,7 +32,7 @@
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('admin.users.edit', Auth::id()) }}">
                         <i class="dropdown-icon fe fe-settings"></i> {{ __('common.settings') }}
                     </a>
                     <a @click="signOut('{{ route('logout') }}')" class="dropdown-item" href="javascript:void(0)">

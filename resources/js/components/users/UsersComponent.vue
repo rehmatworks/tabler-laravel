@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in usersData.data">
+                    <tr v-for="user, index in usersData.data">
                         <td class="text-center">
                             <div :style="{'background-image': 'url(' + user.avatarurl + ')'}" class="avatar d-block">
                             </div>
@@ -38,8 +38,8 @@
                             <div class="item-action dropdown">
                                 <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="#" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit</a>
-                                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-trash"></i> Delete</a>
+                                    <a v-bind:href="baseurl+'/'+user.id+'/edit'" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit</a>
+                                    <a @click="deleteUser(user.id, index)" href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-trash"></i> Delete</a>
                                 </div>
                             </div>
                         </td>
@@ -70,15 +70,33 @@ export default {
         this.loadUsers();
     },
     methods: {
-        loadUsers(page=1) {
+        loadUsers(page = 1) {
             let _this = this;
             _this.loading = true;
-            axios.get(_this.baseurl+'?page='+page).then((res) => {
+            axios.get(_this.baseurl + '?page=' + page).then((res) => {
                 _this.loading = false;
                 _this.usersData = res.data;
             }).catch((err) => {
                 _this.loading = false;
                 _this.$toast("Something went wrong!");
+            });
+        },
+        deleteUser(userId, index) {
+            let _this = this;
+            this.$confirm({
+                title: 'Are you sure?',
+                content: 'The user and all associated data will be deleted.',
+                yesText: 'Yes, Delete',
+                noText: 'No'
+            }).then(function() {
+                axios.delete(_this.baseurl+'/'+userId).then((res) => {
+                    _this.$toast('User has been deleted.');
+                    _this.usersData.data.splice(index, 1);
+                }).catch((err) => {
+                    _this.$toast(err.response.data.message);
+                });
+            }).catch((err) => {
+
             });
         }
     }

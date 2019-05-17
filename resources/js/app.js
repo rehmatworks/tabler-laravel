@@ -8,6 +8,8 @@ Vue.use(Confirm);
 Vue.use(Toast, 1500);
 Vue.use(Loading);
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 import UsersComponent from './components/users/UsersComponent';
 Vue.component('users-component', UsersComponent);
 

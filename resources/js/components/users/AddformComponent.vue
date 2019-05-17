@@ -68,7 +68,7 @@ export default {
             _this.adding = true;
             _this.errors = [];
             axios.post(_this.baseurl, {role: _this.role, email: _this.email, name: _this.name, password: _this.password}).then((res) => {
-                _this.$parent.users = [res.data].concat(_this.$parent.users);
+                _this.$parent.usersData.data = [res.data].concat(_this.$parent.usersData.data);
                 _this.$toast('User account has been created!');
                 _this.resetForm();
                 _this.adding = false;

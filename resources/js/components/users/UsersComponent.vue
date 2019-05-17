@@ -6,18 +6,18 @@
             Loading...
         </div>
         <div class="table-responsive" v-else>
-            <table v-if="users.length" class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <table v-if="usersData.data" class="table table-hover table-outline table-vcenter text-nowrap card-table">
                 <thead>
                     <tr>
                         <th class="text-center w-1"><i class="icon-people"></i></th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th class="text-center">Role</th>
+                        <th>Role</th>
                         <th class="text-center"><i class="icon-settings"></i></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in users">
+                    <tr v-for="user in usersData.data">
                         <td class="text-center">
                             <div :style="{'background-image': 'url(' + user.avatarurl + ')'}" class="avatar d-block">
                             </div>
@@ -31,7 +31,7 @@
                         <td>
                             {{ user.email }}
                         </td>
-                        <td class="text-center">
+                        <td>
                             {{ user.role }}
                         </td>
                         <td class="text-right">
@@ -49,6 +49,7 @@
             <p v-else class="m-4 text-center">No users found!</p>
         </div>
     </div>
+    <pagination :data="usersData" @pagination-change-page="loadUsers"></pagination>
 </div>
 </template>
 
@@ -59,22 +60,22 @@ export default {
     components: {
         AddformComponent
     },
-    mounted() {
-        this.loadUsers();
-    },
     data() {
         return {
-            users: [],
+            usersData: {},
             loading: false
         }
     },
+    mounted() {
+        this.loadUsers();
+    },
     methods: {
-        loadUsers() {
+        loadUsers(page=1) {
             let _this = this;
             _this.loading = true;
-            axios.get(_this.baseurl).then((res) => {
+            axios.get(_this.baseurl+'?page='+page).then((res) => {
                 _this.loading = false;
-                _this.users = res.data.data;
+                _this.usersData = res.data;
             }).catch((err) => {
                 _this.loading = false;
                 _this.$toast("Something went wrong!");

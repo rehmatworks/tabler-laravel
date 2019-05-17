@@ -31,5 +31,6 @@ return [
     'resetpassword' => 'Reset Password',
     'setanewpassword' => 'Set a New Password',
     'setnewaccountpassword' => 'Set a new account password',
-    'authenticationarea' => 'Authentication Area'
+    'authenticationarea' => 'Authentication Area',
+    'sendresetlink' => 'Send Reset Link'
 ];

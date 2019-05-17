@@ -10,14 +10,14 @@
                     <span v-if="notifs.length" class="nav-unread"></span>
                 </a>
                 <div v-if="notifs.length" class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                    <a href="#" class="dropdown-item d-flex">
+                    <a v-for="notif in notifs" v-bind:href="notif.data.url" class="dropdown-item d-flex">
                         <div>
-                            <strong>Nathan</strong> pushed new commit: Fix page load performance issue.
-                            <div class="small text-muted">10 minutes ago</div>
+                            <span v-text="notif.data.message"></span>
+                            <div class="small text-muted" v-text="notif.created_at"></div>
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item text-center">Mark all as read</a>
+                    <a href="#" class="dropdown-item text-center">{{ __('common.markasread') }}</a>
                 </div>
                 <div v-else class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                     <p class="text-center pt-3">{{ __('common.nonotifsfound') }}</p>
@@ -33,7 +33,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                     <a class="dropdown-item" href="#">
-                        <i class="dropdown-icon fe fe-settings"></i> Settings
+                        <i class="dropdown-icon fe fe-settings"></i> {{ __('common.settings') }}
                     </a>
                     <a @click="signOut('{{ route('logout') }}')" class="dropdown-item" href="javascript:void(0)">
                         <i class="dropdown-icon fe fe-log-out"></i> {{ __('auth.signout') }}

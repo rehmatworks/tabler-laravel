@@ -21,7 +21,7 @@
             @endif
         </div>
         <div class="form-footer mt-0">
-            <button type="submit" class="btn btn-primary btn-block">{{ __('auth.login') }}</button>
+            <button type="submit" class="btn btn-primary btn-block">{{ __('auth.sendresetlink') }}</button>
         </div>
     </div>
 </form>

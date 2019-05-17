@@ -13,7 +13,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Homepage - tabler.github.io - a responsive, flat and full featured admin template</title>
+    <title>@yield('title', __('common.adminarea')) | {{ env('APP_NAME') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="{{ asset('assets/js/require.min.js') }}"></script>

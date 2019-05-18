@@ -46,6 +46,8 @@
         @include('admin.partials.footer')
       </footer>
     </div>
+    <script src="{{ asset('js/vendor.js') }}?{{ uniqid() }}"></script>
+    <script src="{{ asset('js/manifest.js') }}?{{ uniqid() }}"></script>
     <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script>
   </body>
 </html>

@@ -6,7 +6,7 @@
             Loading...
         </div>
         <div class="table-responsive" v-else>
-            <table v-if="usersData.data" class="table table-hover table-outline table-vcenter text-nowrap card-table">
+            <table v-if="usersData.total" class="table table-hover table-outline table-vcenter text-nowrap card-table">
                 <thead>
                     <tr>
                         <th class="text-center w-1"><i class="icon-people"></i></th>
@@ -63,17 +63,23 @@ export default {
     data() {
         return {
             usersData: {},
-            loading: false
+            loading: false,
+            q: ''
         }
     },
     mounted() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if(q) {
+            this.q = q;
+        }
         this.loadUsers();
     },
     methods: {
         loadUsers(page = 1) {
             let _this = this;
             _this.loading = true;
-            axios.get(_this.baseurl + '?page=' + page).then((res) => {
+            axios.get(_this.baseurl + '?page=' + page + '&q=' + _this.q).then((res) => {
                 _this.loading = false;
                 _this.usersData = res.data;
             }).catch((err) => {

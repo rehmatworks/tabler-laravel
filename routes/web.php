@@ -10,4 +10,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
             'index' => 'users'
         ]
     ]);
+    Route::get('notifications', function(Request $request) {
+        return response()->json(Auth::user()->unreadNotifications());
+    })->name('notifications');
 });

@@ -21,6 +21,7 @@
       requirejs.config({
           baseUrl: '{{ url('/') }}'
       });
+      const adminurl = '{{ route('admin.dashboard') }}';
     </script>
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet" />
   </head>

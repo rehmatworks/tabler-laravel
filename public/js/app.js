@@ -34289,7 +34289,15 @@ var app = new Vue({
     this.getNotifications();
   },
   methods: {
-    getNotifications: function getNotifications() {},
+    getNotifications: function getNotifications() {
+      var _this = this;
+
+      axios.get(adminurl + '/notifications').then(function (res) {
+        _this.notifs = res.data;
+      })["catch"](function (err) {
+        _this.$toast('Error while loading notifications.');
+      });
+    },
     signOut: function signOut(url) {
       axios.post(url);
       window.setTimeout(function () {

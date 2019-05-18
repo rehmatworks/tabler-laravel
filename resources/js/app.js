@@ -23,7 +23,12 @@ const app = new Vue({
     },
     methods: {
         getNotifications() {
-
+            let _this = this;
+            axios.get(adminurl+'/notifications').then((res) => {
+                _this.notifs = res.data;
+            }).catch((err) => {
+                _this.$toast('Error while loading notifications.');
+            });
         },
         signOut(url) {
             axios.post(url);
